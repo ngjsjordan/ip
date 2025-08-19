@@ -1,19 +1,43 @@
+import java.util.Scanner;
+
 public class Marquess {
-    public static void main(String[] args) {
-        new Marquess().run();
+    private final Scanner sc;
+    private static final String DIVIDER = "-".repeat(50);
+
+    public Marquess() {
+        this.sc = new Scanner(System.in);
     }
 
-    public void run() {
+    private void run() {
         this.greet();
-        this.exit();
+
+        String input = "";
+        while (!input.equals("bye")) {
+            System.out.println(Marquess.DIVIDER);
+            input = this.sc.nextLine();
+
+            switch (input) {
+                case "bye":
+                    this.exit();
+                    break;
+
+                default:
+                    System.out.println(input);
+            }
+        }
     }
 
-    public void greet() {
+    private void greet() {
         System.out.println("Hello! I'm Marquess!");
         System.out.println("What can I do for you?");
     }
 
-    public void exit() {
+    private void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
+    public static void main(String[] args) {
+        new Marquess().run();
+    }
+
 }
