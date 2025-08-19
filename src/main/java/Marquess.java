@@ -1,8 +1,11 @@
 import java.util.Scanner;
 
 public class Marquess {
-    private final Scanner sc;
     private static final String DIVIDER = "-".repeat(50);
+
+    private final Scanner sc;
+    private String[] tasks = new String[100];
+    private int num_tasks = 0;
 
     public Marquess() {
         this.sc = new Scanner(System.in);
@@ -21,8 +24,16 @@ public class Marquess {
                     this.exit();
                     break;
 
+                case "list":
+                    for (int i = 0; i < this.num_tasks; i++) {
+                        System.out.printf("%d. %s%n", i + 1, this.tasks[i]);
+                    }
+                    break;
+
                 default:
-                    System.out.println(input);
+                    this.tasks[this.num_tasks] = input;
+                    this.num_tasks++;
+                    System.out.printf("added: %s%n", input);
             }
         }
     }
