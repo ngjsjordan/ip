@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -40,8 +41,52 @@ public class Marquess {
                     this.tasks.unmarkTask(Integer.parseInt(params[1]) - 1);
                     break;
 
+                case "todo":
+                    this.tasks.addTask(new Todo(
+                        Arrays.stream(params)
+                            .skip(1)
+                            .reduce((acc, word) -> acc + " " + word)
+                            .orElse(""))
+                    );
+                    break;
+
+                case "deadline":
+                    this.tasks.addTask(new Deadline(
+                        Arrays.stream(params)
+                            .skip(1)
+                            .takeWhile(word -> !word.equals("/by"))
+                            .reduce((acc, word) -> acc + " " + word)
+                            .orElse(""),
+                        Arrays.stream(params)
+                            .dropWhile(word -> !word.equals("/by"))
+                            .skip(1)
+                            .reduce((acc, word) -> acc + " " + word)
+                            .orElse(""))
+                    );
+                    break;
+
+                case "event":
+                    this.tasks.addTask(new Event(
+                        Arrays.stream(params)
+                            .skip(1)
+                            .takeWhile(word -> !(word.equals("/from") || word.equals("/to")))
+                            .reduce((acc, word) -> acc + " " + word)
+                            .orElse(""),
+                        Arrays.stream(params)
+                            .dropWhile(word -> !word.equals("/from"))
+                            .skip(1)
+                            .takeWhile(word -> !word.equals("/to"))
+                            .reduce((acc, word) -> acc + " " + word)
+                            .orElse(""),
+                        Arrays.stream(params)
+                            .dropWhile(word -> !word.equals("/to"))
+                            .skip(1)
+                            .reduce((acc, word) -> acc + " " + word)
+                            .orElse(""))
+                    );
+
                 default:
-                    this.tasks.addTask(new Task(input));
+
             }
         }
     }

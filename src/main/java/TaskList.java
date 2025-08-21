@@ -23,7 +23,7 @@ public class TaskList {
 
     public void addTask(Task t) {
         this.taskList.add(t);
-        System.out.printf("added: %s%n", t);
+        System.out.printf("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n", t, this.taskList.size());
     }
 
     public void markTask(int i) {
