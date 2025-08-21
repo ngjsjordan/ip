@@ -24,69 +24,75 @@ public class Marquess {
             input = this.sc.nextLine();
             params = input.split(" ");
 
-            switch (params[0]) {
-                case "bye":
-                    this.exit();
-                    break;
+            try {
+                switch (params[0]) {
+                    case "bye":
+                        this.exit();
+                        break;
 
-                case "list":
-                    this.tasks.printTasks();
-                    break;
+                    case "list":
+                        this.tasks.printTasks();
+                        break;
 
-                case "mark":
-                    this.tasks.markTask(Integer.parseInt(params[1]) - 1);
-                    break;
+                    case "mark":
+                        this.tasks.markTask(Integer.parseInt(params[1]) - 1);
+                        break;
 
-                case "unmark":
-                    this.tasks.unmarkTask(Integer.parseInt(params[1]) - 1);
-                    break;
+                    case "unmark":
+                        this.tasks.unmarkTask(Integer.parseInt(params[1]) - 1);
+                        break;
 
-                case "todo":
-                    this.tasks.addTask(new Todo(
-                        Arrays.stream(params)
-                            .skip(1)
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""))
-                    );
-                    break;
+                    case "todo":
+                        this.tasks.addTask(new Todo(
+                            Arrays.stream(params)
+                                .skip(1)
+                                .reduce((acc, word) -> acc + " " + word)
+                                .orElse(""))
+                        );
+                        break;
 
-                case "deadline":
-                    this.tasks.addTask(new Deadline(
-                        Arrays.stream(params)
-                            .skip(1)
-                            .takeWhile(word -> !word.equals("/by"))
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""),
-                        Arrays.stream(params)
-                            .dropWhile(word -> !word.equals("/by"))
-                            .skip(1)
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""))
-                    );
-                    break;
+                    case "deadline":
+                        this.tasks.addTask(new Deadline(
+                            Arrays.stream(params)
+                                .skip(1)
+                                .takeWhile(word -> !word.equals("/by"))
+                                .reduce((acc, word) -> acc + " " + word)
+                                .orElse(""),
+                            Arrays.stream(params)
+                                .dropWhile(word -> !word.equals("/by"))
+                                .skip(1)
+                                .reduce((acc, word) -> acc + " " + word)
+                                .orElse(""))
+                        );
+                        break;
 
-                case "event":
-                    this.tasks.addTask(new Event(
-                        Arrays.stream(params)
-                            .skip(1)
-                            .takeWhile(word -> !(word.equals("/from") || word.equals("/to")))
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""),
-                        Arrays.stream(params)
-                            .dropWhile(word -> !word.equals("/from"))
-                            .skip(1)
-                            .takeWhile(word -> !word.equals("/to"))
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""),
-                        Arrays.stream(params)
-                            .dropWhile(word -> !word.equals("/to"))
-                            .skip(1)
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""))
-                    );
+                    case "event":
+                        this.tasks.addTask(new Event(
+                            Arrays.stream(params)
+                                .skip(1)
+                                .takeWhile(word -> !(word.equals("/from") || word.equals("/to")))
+                                .reduce((acc, word) -> acc + " " + word)
+                                .orElse(""),
+                            Arrays.stream(params)
+                                .dropWhile(word -> !word.equals("/from"))
+                                .skip(1)
+                                .takeWhile(word -> !word.equals("/to"))
+                                .reduce((acc, word) -> acc + " " + word)
+                                .orElse(""),
+                            Arrays.stream(params)
+                                .dropWhile(word -> !word.equals("/to"))
+                                .skip(1)
+                                .reduce((acc, word) -> acc + " " + word)
+                                .orElse(""))
+                        );
+                        break;
 
-                default:
+                    default:
+                        throw new InvalidCommandException(params[0]);
 
+                }
+            } catch (InsufficientParametersException | InvalidCommandException | TaskNotFoundException e) {
+                System.err.println(e);
             }
         }
     }

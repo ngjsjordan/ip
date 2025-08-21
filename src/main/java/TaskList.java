@@ -26,12 +26,18 @@ public class TaskList {
         System.out.printf("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n", t, this.taskList.size());
     }
 
-    public void markTask(int i) {
+    public void markTask(int i) throws TaskNotFoundException {
+        if (i < 0 || i >= this.taskList.size()) {
+            throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
+        }
         this.taskList.get(i).mark();
         System.out.printf("Nice! I've marked this task as done:%n%s%n", this.taskList.get(i));
     }
 
-    public void unmarkTask(int i) {
+    public void unmarkTask(int i) throws TaskNotFoundException {
+        if (i < 0 || i >= this.taskList.size()) {
+            throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
+        }
         this.taskList.get(i).unmark();
         System.out.printf("OK, I've marked this task as not done yet:%n%s%n", this.taskList.get(i));
     }
