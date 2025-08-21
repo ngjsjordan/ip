@@ -1,39 +1,47 @@
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Marquess {
     private static final String DIVIDER = "-".repeat(50);
 
     private final Scanner sc;
-    private String[] tasks = new String[100];
-    private int num_tasks = 0;
+    private final TaskList tasks;
 
     public Marquess() {
         this.sc = new Scanner(System.in);
+        this.tasks = new TaskList();
     }
 
     private void run() {
         this.greet();
 
         String input = "";
+        String[] params;
+
         while (!input.equals("bye")) {
             System.out.println(Marquess.DIVIDER);
             input = this.sc.nextLine();
+            params = input.split(" ");
 
-            switch (input) {
+            switch (params[0]) {
                 case "bye":
                     this.exit();
                     break;
 
                 case "list":
-                    for (int i = 0; i < this.num_tasks; i++) {
-                        System.out.printf("%d. %s%n", i + 1, this.tasks[i]);
-                    }
+                    this.tasks.printTasks();
+                    break;
+
+                case "mark":
+                    this.tasks.markTask(Integer.parseInt(params[1]) - 1);
+                    break;
+
+                case "unmark":
+                    this.tasks.unmarkTask(Integer.parseInt(params[1]) - 1);
                     break;
 
                 default:
-                    this.tasks[this.num_tasks] = input;
-                    this.num_tasks++;
-                    System.out.printf("added: %s%n", input);
+                    this.tasks.addTask(new Task(input));
             }
         }
     }
