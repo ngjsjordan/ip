@@ -26,6 +26,14 @@ public class TaskList {
         System.out.printf("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n", t, this.taskList.size());
     }
 
+    public void deleteTask(int i) throws TaskNotFoundException {
+        if (i < 0 || i >= this.taskList.size()) {
+            throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
+        }
+        Task removed = this.taskList.remove(i);
+        System.out.printf("Noted. I've removed this task:%n%s%nNow you have %d task(s) in the list.%n", removed, this.taskList.size());
+    }
+
     public void markTask(int i) throws TaskNotFoundException {
         if (i < 0 || i >= this.taskList.size()) {
             throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));

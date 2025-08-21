@@ -35,10 +35,16 @@ public class Marquess {
                         break;
 
                     case "mark":
+                        if (params.length < 2) {
+                            throw new InsufficientParametersException("required - task number");
+                        }
                         this.tasks.markTask(Integer.parseInt(params[1]) - 1);
                         break;
 
                     case "unmark":
+                        if (params.length < 2) {
+                            throw new InsufficientParametersException("required - task number");
+                        }
                         this.tasks.unmarkTask(Integer.parseInt(params[1]) - 1);
                         break;
 
@@ -85,6 +91,13 @@ public class Marquess {
                                 .reduce((acc, word) -> acc + " " + word)
                                 .orElse(""))
                         );
+                        break;
+
+                    case "delete":
+                        if (params.length < 2) {
+                            throw new InsufficientParametersException("required - task number");
+                        }
+                        this.tasks.deleteTask(Integer.parseInt(params[1]) - 1);
                         break;
 
                     default:
