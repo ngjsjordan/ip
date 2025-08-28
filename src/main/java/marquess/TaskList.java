@@ -24,7 +24,7 @@ public class TaskList {
         return String.join("",
             Stream.iterate(0, i -> i + 1)
                 .limit(taskList.size())
-                .map(i -> String.format("%d. %s%n", i + 1,taskList.get(i).toString()))
+                .map(i -> String.format("%d. %s%n", i + 1, taskList.get(i).toString()))
                 .toList());
     }
 
@@ -40,7 +40,8 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.taskList.add(task);
-        return String.format("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n", task, this.taskList.size());
+        return String.format("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n",
+                task, this.taskList.size());
     }
 
     /**
@@ -54,7 +55,8 @@ public class TaskList {
             throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
         }
         Task removed = this.taskList.remove(i);
-        return String.format("Noted. I've removed this task:%n%s%nNow you have %d task(s) in the list.%n", removed, this.taskList.size());
+        return String.format("Noted. I've removed this task:%n%s%nNow you have %d task(s) in the list.%n",
+                removed, this.taskList.size());
     }
 
     /**
@@ -93,6 +95,6 @@ public class TaskList {
     public String exportTasks() {
         return taskList.stream()
                 .map(Task::exportTask)
-                .reduce("",(acc, t) -> acc + t + "\n");
+                .reduce("", (acc, t) -> acc + t + "\n");
     }
 }

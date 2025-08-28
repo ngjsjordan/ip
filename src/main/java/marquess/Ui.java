@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String DIVIDER = "-".repeat(50);
 
-    public Scanner sc;
+    private final Scanner sc;
 
     public Ui() {
         sc = new Scanner(System.in);
@@ -30,6 +30,9 @@ public class Ui {
         System.out.println(Ui.DIVIDER);
     }
 
+    /**
+     * Prints welcome message to user.
+     */
     public void showWelcome() {
         System.out.println("Hello! I'm Marquess!");
         System.out.println("What can I do for you?");

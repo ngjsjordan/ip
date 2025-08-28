@@ -1,9 +1,9 @@
 package marquess.command;
 
-import marquess.exception.MarquessException;
 import marquess.Storage;
 import marquess.TaskList;
 import marquess.Ui;
+import marquess.exception.MarquessException;
 
 /**
  * Command to delete a task from the task list.

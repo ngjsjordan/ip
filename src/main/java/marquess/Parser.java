@@ -1,6 +1,12 @@
 package marquess;
 
-import marquess.command.*;
+import marquess.command.AddCommand;
+import marquess.command.Command;
+import marquess.command.DeleteCommand;
+import marquess.command.ExitCommand;
+import marquess.command.InvalidCommand;
+import marquess.command.ListCommand;
+import marquess.command.MarkCommand;
 import marquess.exception.InsufficientParametersException;
 import marquess.exception.InvalidParameterException;
 import marquess.exception.MarquessException;
@@ -75,7 +81,7 @@ class Parser {
      */
     public int getIndex(String[] params) throws MarquessException {
         try {
-           return Integer.parseInt(params[1]) - 1;
+            return Integer.parseInt(params[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InsufficientParametersException("required - index");
         } catch (NumberFormatException e) {

@@ -13,10 +13,15 @@ public class Marquess {
     private final TaskList taskList;
     private final Ui ui;
 
-    public Marquess(String file_path) {
+    /**
+     * Constructor for Marquess.
+     *
+     * @param filePath File Path to the txt storage file.
+     */
+    public Marquess(String filePath) {
         parser = new Parser();
         taskList = new TaskList();
-        storage = new Storage(file_path);
+        storage = new Storage(filePath);
         ui = new Ui();
 
         storage.load(taskList);

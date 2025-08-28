@@ -1,9 +1,9 @@
 package marquess.command;
 
-import marquess.exception.InvalidCommandException;
 import marquess.Storage;
 import marquess.TaskList;
 import marquess.Ui;
+import marquess.exception.InvalidCommandException;
 
 /**
  * Represents command that does not exist.

@@ -1,5 +1,6 @@
 package marquess;
 
+import marquess.exception.InvalidParameterException;
 import marquess.exception.MarquessException;
 import marquess.task.Deadline;
 import marquess.task.Event;
@@ -12,18 +13,18 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Handles the saving and loading of duke.Marquess data from txt storage.
+ * Handles the saving and loading of Marquess data from txt storage.
  */
 public class Storage {
     private final File file;
 
     /**
-     * Constructor for duke.Storage class using a file path.
+     * Constructor for Storage class using a file path.
      *
-     * @param file_path File path of the txt file to be used.
+     * @param filePath File path of the txt file to be used.
      */
-    public Storage(String file_path) {
-        this.file = new File(file_path);
+    public Storage(String filePath) {
+        this.file = new File(filePath);
         if (!file.exists()) {
             try {
                 boolean success = file.getParentFile().mkdirs();
@@ -37,7 +38,7 @@ public class Storage {
     /**
      * Saves a task list to file.
      *
-     * @param taskList duke.task.Task list to be saved.
+     * @param taskList Task list to be saved.
      */
     public void save(TaskList taskList) {
         String formatted = taskList.exportTasks();
@@ -53,7 +54,7 @@ public class Storage {
     /**
      * Loads tasks to a task list.
      *
-     * @param taskList duke.task.Task list to be loaded to.
+     * @param taskList Task list to be loaded to.
      */
     public void load(TaskList taskList) {
         try {
@@ -77,9 +78,12 @@ public class Storage {
                         taskList.addTask(new Event(taskSplit[3].equals("1"),
                                 taskSplit[4], taskSplit[1], taskSplit[2]));
                         break;
+                    default:
+                        throw new InvalidParameterException("Invalid Task");
                     }
+
                 } catch (MarquessException e) {
-                    System.err.println("duke.task.Task cannot be loaded: " + e.getMessage());
+                    System.err.println("Task cannot be loaded: " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
