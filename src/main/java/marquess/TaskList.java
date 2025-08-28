@@ -1,3 +1,8 @@
+package marquess;
+
+import marquess.exception.TaskNotFoundException;
+import marquess.task.Task;
+
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -24,7 +29,7 @@ public class TaskList {
     /**
      * Adds a task to the task list.
      *
-     * @param task Task to be added.
+     * @param task duke.task.Task to be added.
      * @return Output message
      */
     public String addTask(Task task) {

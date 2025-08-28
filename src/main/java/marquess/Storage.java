@@ -1,18 +1,24 @@
+package marquess;
+
+import marquess.exception.MarquessException;
+import marquess.task.Deadline;
+import marquess.task.Event;
+import marquess.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Handles the saving and loading of Marquess data from txt storage.
+ * Handles the saving and loading of duke.Marquess data from txt storage.
  */
 public class Storage {
     private final File file;
 
     /**
-     * Constructor for Storage class using a file path.
+     * Constructor for duke.Storage class using a file path.
      *
      * @param file_path File path of the txt file to be used.
      */
@@ -31,7 +37,7 @@ public class Storage {
     /**
      * Saves a task list to file.
      *
-     * @param taskList Task list to be saved.
+     * @param taskList duke.task.Task list to be saved.
      */
     public void save(TaskList taskList) {
         String formatted = taskList.exportTasks();
@@ -47,7 +53,7 @@ public class Storage {
     /**
      * Loads tasks to a task list.
      *
-     * @param taskList Task list to be loaded to.
+     * @param taskList duke.task.Task list to be loaded to.
      */
     public void load(TaskList taskList) {
         try {
@@ -73,7 +79,7 @@ public class Storage {
                         break;
                     }
                 } catch (MarquessException e) {
-                    System.err.println("Task cannot be loaded: " + e.getMessage());
+                    System.err.println("duke.task.Task cannot be loaded: " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {

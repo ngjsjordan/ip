@@ -1,5 +1,11 @@
+package marquess.command;
+
+import marquess.Storage;
+import marquess.TaskList;
+import marquess.Ui;
+
 /**
- * Command to exit the program.
+ * duke.command.Command to exit the program.
  */
 public class ExitCommand extends Command {
     @Override

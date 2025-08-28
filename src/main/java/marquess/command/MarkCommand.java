@@ -1,5 +1,12 @@
+package marquess.command;
+
+import marquess.exception.MarquessException;
+import marquess.Storage;
+import marquess.TaskList;
+import marquess.Ui;
+
 /**
- * Command to add a task to the task list.
+ * duke.command.Command to add a task to the task list.
  */
 public class MarkCommand extends Command {
     private final int idx;

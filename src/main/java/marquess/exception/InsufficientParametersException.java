@@ -1,3 +1,5 @@
+package marquess.exception;
+
 public class InsufficientParametersException extends MarquessException {
 
     public InsufficientParametersException(String message) {

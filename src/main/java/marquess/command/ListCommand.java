@@ -1,5 +1,11 @@
+package marquess.command;
+
+import marquess.Storage;
+import marquess.TaskList;
+import marquess.Ui;
+
 /**
- * Command to list existing tasks.
+ * duke.command.Command to list existing tasks.
  */
 public class ListCommand extends Command {
     @Override

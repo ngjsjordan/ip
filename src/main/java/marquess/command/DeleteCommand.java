@@ -1,5 +1,12 @@
+package marquess.command;
+
+import marquess.exception.MarquessException;
+import marquess.Storage;
+import marquess.TaskList;
+import marquess.Ui;
+
 /**
- * Command to delete a task from the task list.
+ * duke.command.Command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
     private final int idx;

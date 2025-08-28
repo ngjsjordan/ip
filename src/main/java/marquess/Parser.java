@@ -1,3 +1,13 @@
+package marquess;
+
+import marquess.command.*;
+import marquess.exception.InsufficientParametersException;
+import marquess.exception.InvalidParameterException;
+import marquess.exception.MarquessException;
+import marquess.task.Deadline;
+import marquess.task.Event;
+import marquess.task.Todo;
+
 import java.util.Arrays;
 
 /**

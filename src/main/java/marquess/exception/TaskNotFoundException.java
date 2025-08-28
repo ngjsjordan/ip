@@ -1,3 +1,5 @@
+package marquess.exception;
+
 public class TaskNotFoundException extends MarquessException {
 
     public TaskNotFoundException(String message) {

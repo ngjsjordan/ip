@@ -1,3 +1,7 @@
+package marquess.task;
+
+import marquess.exception.MarquessException;
+
 public class Todo extends Task {
 
     public Todo(String description) throws MarquessException {

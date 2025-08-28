@@ -1,3 +1,8 @@
+package marquess.task;
+
+import marquess.exception.InsufficientParametersException;
+import marquess.exception.MarquessException;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;

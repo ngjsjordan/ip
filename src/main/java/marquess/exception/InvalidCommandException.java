@@ -1,3 +1,5 @@
+package marquess.exception;
+
 public class InvalidCommandException extends MarquessException {
 
     public InvalidCommandException(String message) {
