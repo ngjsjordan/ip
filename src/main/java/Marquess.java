@@ -1,16 +1,19 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class Marquess {
     private static final String DIVIDER = "-".repeat(50);
 
     private final Scanner sc;
     private final TaskList tasks;
+    private final Storage storage;
 
-    public Marquess() {
+    public Marquess(String file_path) {
         this.sc = new Scanner(System.in);
+        this.storage = new Storage(file_path);
+
         this.tasks = new TaskList();
+        this.storage.load(tasks);
     }
 
     private void run() {
@@ -104,6 +107,7 @@ public class Marquess {
                         throw new InvalidCommandException(params[0]);
 
                 }
+                storage.save(tasks);
             } catch (InsufficientParametersException | InvalidCommandException | TaskNotFoundException e) {
                 System.err.println(e);
             }
@@ -120,7 +124,7 @@ public class Marquess {
     }
 
     public static void main(String[] args) {
-        new Marquess().run();
+        new Marquess("./data/marquess.txt").run();
     }
 
 }
