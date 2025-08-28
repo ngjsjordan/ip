@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -53,22 +54,26 @@ public class Storage {
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String formatted = s.nextLine();
-                String[] taskSplit = formatted.split(",", 3);
-                switch (taskSplit[0]) {
-                case "T":
-                    taskList.addTask(new Todo(taskSplit[1].equals("1"),
-                            taskSplit[2]), true);
-                    break;
-                case "D":
-                    taskSplit = formatted.split(",", 4);
-                    taskList.addTask(new Deadline(taskSplit[2].equals("1"),
-                            taskSplit[3], taskSplit[1]), true);
-                    break;
-                case "E":
-                    taskSplit = formatted.split(",", 5);
-                    taskList.addTask(new Event(taskSplit[3].equals("1"),
-                            taskSplit[4], taskSplit[1], taskSplit[2]), true);
-                    break;
+                try {
+                    String[] taskSplit = formatted.split(",", 3);
+                    switch (taskSplit[0]) {
+                    case "T":
+                        taskList.addTask(new Todo(taskSplit[1].equals("1"),
+                                taskSplit[2]), true);
+                        break;
+                    case "D":
+                        taskSplit = formatted.split(",", 4);
+                        taskList.addTask(new Deadline(taskSplit[2].equals("1"),
+                                taskSplit[3], taskSplit[1]), true);
+                        break;
+                    case "E":
+                        taskSplit = formatted.split(",", 5);
+                        taskList.addTask(new Event(taskSplit[3].equals("1"),
+                                taskSplit[4], taskSplit[1], taskSplit[2]), true);
+                        break;
+                    }
+                } catch (DateTimeParseException e) {
+                    System.err.println("Date is invalid: " + e);
                 }
             }
         } catch (FileNotFoundException e) {

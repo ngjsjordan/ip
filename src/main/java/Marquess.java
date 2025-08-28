@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -110,6 +111,8 @@ public class Marquess {
                 storage.save(tasks);
             } catch (InsufficientParametersException | InvalidCommandException | TaskNotFoundException e) {
                 System.err.println(e);
+            } catch (DateTimeParseException e) {
+                System.err.println("The datetime format is invalid: " + e);
             }
         }
     }

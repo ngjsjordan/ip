@@ -1,23 +1,27 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Event(String description, String start, String end) throws InsufficientParametersException {
+    public Event(String description, String start, String end) throws InsufficientParametersException, DateTimeParseException {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
-    public Event(boolean isDone, String description, String start, String end) throws InsufficientParametersException {
+    public Event(boolean isDone, String description, String start, String end) throws InsufficientParametersException, DateTimeParseException {
         super(isDone, description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to %s)", super.toString(), this.start, this.end);
+        return String.format("[E]%s (from: %s to %s)", super.toString(), this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")), this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
