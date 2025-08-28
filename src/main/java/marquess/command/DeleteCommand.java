@@ -6,7 +6,7 @@ import marquess.TaskList;
 import marquess.Ui;
 
 /**
- * duke.command.Command to delete a task from the task list.
+ * Command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
     private final int idx;

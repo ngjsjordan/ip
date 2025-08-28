@@ -8,10 +8,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A task with a deadline.
+ */
 public class Deadline extends Task {
-
     protected LocalDate by;
 
+    /**
+     * Constructor for deadline task with default isDone status.
+     *
+     * @param description Description of task.
+     * @param by Datetime that the task must be completed by.
+     * @throws MarquessException If insufficient or invalid parameters are passed in.
+     */
     public Deadline(String description, String by) throws MarquessException {
         super(description);
         try {
@@ -23,6 +32,14 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Constructor for deadline task.
+     *
+     * @param isDone Initial isDone status.
+     * @param description Description of task.
+     * @param by Datetime that the task must be completed by.
+     * @throws MarquessException If insufficient or invalid parameters are passed in.
+     */
     public Deadline(boolean isDone, String description, String by) throws MarquessException {
         super(isDone, description);
         try {

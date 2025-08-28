@@ -14,6 +14,12 @@ import java.util.Arrays;
  * Parses input strings into commands.
  */
 class Parser {
+    /**
+     * Method for parsing user input strings into Command objects.
+     * @param s String to be parsed.
+     * @return Command that was parsed from the input string.
+     * @throws MarquessException If command was entered incorrectly.
+     */
     public Command parse(String s) throws MarquessException {
         String[] params = s.split(" ");
 

@@ -3,6 +3,9 @@ package marquess;
 import marquess.command.Command;
 import marquess.exception.MarquessException;
 
+/**
+ * Main class for Marquess.
+ */
 public class Marquess {
 
     private final Parser parser;
@@ -19,6 +22,9 @@ public class Marquess {
         storage.load(taskList);
     }
 
+    /**
+     * Runs the program.
+     */
     private void run() {
         ui.showWelcome();
 

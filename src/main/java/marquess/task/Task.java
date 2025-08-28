@@ -3,10 +3,19 @@ package marquess.task;
 import marquess.exception.InsufficientParametersException;
 import marquess.exception.MarquessException;
 
+/**
+ * Parent class for types of tasks that can be tracked by Marquess.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for task. isDone is initialised as false.
+     *
+     * @param description Description of task.
+     * @throws MarquessException If description is empty.
+     */
     public Task(String description) throws MarquessException {
         if (description.isEmpty()) {
             throw new InsufficientParametersException("task requires - description");
@@ -15,7 +24,17 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Constructor for task.
+     *
+     * @param isDone Starting isDone status.
+     * @param description Description of task.
+     * @throws MarquessException If description is empty.
+     */
     public Task(boolean isDone, String description) throws MarquessException {
+        if (description.isEmpty()) {
+            throw new InsufficientParametersException("task requires - description");
+        }
         this.description = description;
         this.isDone = isDone;
     }
@@ -25,6 +44,11 @@ public abstract class Task {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
+    /**
+     * Gets the status icon as String.
+     *
+     * @return Status icon. Either X if complete or " " if not complete.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

@@ -1,7 +1,9 @@
 package marquess.exception;
 
+/**
+ * Thrown when an invalid parameter is passed to a command.
+ */
 public class InvalidParameterException extends MarquessException {
-
     public InvalidParameterException(String message) {
         super(message);
     }

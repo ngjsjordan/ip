@@ -11,6 +11,11 @@ import marquess.Ui;
 public class InvalidCommand extends Command {
     private final String invalidCommand;
 
+    /**
+     * Constructor for invalid command.
+     *
+     * @param invalidCommand Attempted command that does not exist.
+     */
     public InvalidCommand(String invalidCommand) {
         this.invalidCommand = invalidCommand;
     }

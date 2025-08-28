@@ -2,6 +2,9 @@ package marquess.task;
 
 import marquess.exception.MarquessException;
 
+/**
+ * A simple task with only a description.
+ */
 public class Todo extends Task {
 
     public Todo(String description) throws MarquessException {

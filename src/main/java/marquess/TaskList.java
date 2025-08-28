@@ -6,9 +6,15 @@ import marquess.task.Task;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+/**
+ * Structure to store the list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructor for an empty task list.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>(0);
     }
@@ -79,6 +85,11 @@ public class TaskList {
         return String.format("OK, I've marked this task as not done yet:%n%s%n", this.taskList.get(i));
     }
 
+    /**
+     * Formats the tasks for storage.
+     *
+     * @return Comma separated string for storage.
+     */
     public String exportTasks() {
         return taskList.stream()
                 .map(Task::exportTask)

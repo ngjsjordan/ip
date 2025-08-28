@@ -6,7 +6,7 @@ import marquess.Ui;
 import marquess.task.Task;
 
 /**
- * duke.command.Command to add a task to the task list.
+ * Command to add a task to the task list.
  */
 public class AddCommand extends Command {
     private final Task task;

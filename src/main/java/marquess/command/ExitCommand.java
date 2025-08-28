@@ -5,7 +5,7 @@ import marquess.TaskList;
 import marquess.Ui;
 
 /**
- * duke.command.Command to exit the program.
+ * Command to exit the program.
  */
 public class ExitCommand extends Command {
     @Override

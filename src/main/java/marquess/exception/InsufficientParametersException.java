@@ -1,7 +1,9 @@
 package marquess.exception;
 
+/**
+ * Thrown when insufficient parameters are provided for a command.
+ */
 public class InsufficientParametersException extends MarquessException {
-
     public InsufficientParametersException(String message) {
         super(message);
     }
