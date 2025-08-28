@@ -69,4 +69,14 @@ public abstract class Task {
     public String exportTask() {
         return String.format("%d,%s", isDone ? 1 : 0, description);
     }
+
+    /**
+     * Returns a boolean representing if task's description contains input string.
+     *
+     * @param s String to match.
+     * @return True if description contains s. Else false.
+     */
+    public boolean contains(String s) {
+        return description.contains(s);
+    }
 }

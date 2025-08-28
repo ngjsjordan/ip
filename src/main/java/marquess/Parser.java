@@ -4,6 +4,7 @@ import marquess.command.AddCommand;
 import marquess.command.Command;
 import marquess.command.DeleteCommand;
 import marquess.command.ExitCommand;
+import marquess.command.FindCommand;
 import marquess.command.InvalidCommand;
 import marquess.command.ListCommand;
 import marquess.command.MarkCommand;
@@ -68,6 +69,7 @@ class Parser {
             case "mark" -> new MarkCommand(getIndex(params), true);
             case "unmark" -> new MarkCommand(getIndex(params), false);
             case "delete" -> new DeleteCommand(getIndex(params));
+            case "find" -> new FindCommand(getSearchString(s));
             default -> new InvalidCommand(params[0]);
         };
     }
@@ -86,6 +88,21 @@ class Parser {
             throw new InsufficientParametersException("required - index");
         } catch (NumberFormatException e) {
             throw new InvalidParameterException(String.format("%s; required integer", params[1]));
+        }
+    }
+
+    /**
+     * Helper function to obtain search string from full input string.
+     *
+     * @param s Input string.
+     * @return Search string.
+     * @throws MarquessException If no parameters are provided.
+     */
+    public String getSearchString(String s) throws MarquessException {
+        try {
+            return s.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InsufficientParametersException("required - search string");
         }
     }
 }

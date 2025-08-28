@@ -4,6 +4,7 @@ import marquess.exception.TaskNotFoundException;
 import marquess.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -35,7 +36,7 @@ public class TaskList {
     /**
      * Adds a task to the task list.
      *
-     * @param task duke.task.Task to be added.
+     * @param task Task to be added.
      * @return Output message
      */
     public String addTask(Task task) {
@@ -81,10 +82,20 @@ public class TaskList {
      */
     public String unmarkTask(int i) throws TaskNotFoundException {
         if (i < 0 || i >= this.taskList.size()) {
-            throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
+            throw new TaskNotFoundException(String.format("task %d; only %d tasks added",
+                    i + 1, this.taskList.size()));
         }
         this.taskList.get(i).unmark();
         return String.format("OK, I've marked this task as not done yet:%n%s%n", this.taskList.get(i));
+    }
+
+    public String findTasks(String searchString) {
+        List<Task> filtered = this.taskList.stream().filter(t -> t.contains(searchString)).toList();
+        return String.format("Here are the matching tasks in your list:%n%s",
+                String.join("", Stream.iterate(0, i -> i + 1)
+                        .limit(filtered.size())
+                        .map(i -> String.format("%d. %s%n", i + 1, filtered.get(i).toString()))
+                        .toList()));
     }
 
     /**

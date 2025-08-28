@@ -6,25 +6,24 @@ import marquess.Ui;
 import marquess.task.Task;
 
 /**
- * Command to add a task to the task list.
+ * Command to find tasks where description contains search string.
  */
-public class AddCommand extends Command {
-    private final Task task;
+public class FindCommand extends Command {
+    private final String searchString;
 
     /**
      * Constructor for command to add task.
      *
-     * @param task Task to be added.
+     * @param searchString string to be searched.
      */
-    public AddCommand(Task task) {
-        this.task = task;
+    public FindCommand(String searchString) {
+        this.searchString = searchString;
     }
 
     @Override
     public void execute(Storage storage, TaskList taskList, Ui ui) {
-        String res = taskList.addTask(task);
+        String res = taskList.findTasks(searchString);
         ui.show(res);
-        storage.save(taskList);
     }
 
     @Override
