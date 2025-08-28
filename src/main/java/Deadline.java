@@ -6,14 +6,26 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
-    public Deadline(String description, String by) throws InsufficientParametersException, DateTimeParseException {
+    public Deadline(String description, String by) throws MarquessException {
         super(description);
-        this.by = LocalDate.parse(by);
+        try {
+            this.by = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw by.isEmpty()
+                    ? new InsufficientParametersException("deadline required")
+                    : new InvalidParameterException(String.format("%s; datetime required", by));
+        }
     }
 
-    public Deadline(boolean isDone, String description, String by) throws InsufficientParametersException, DateTimeParseException {
+    public Deadline(boolean isDone, String description, String by) throws MarquessException {
         super(isDone, description);
-        this.by = LocalDate.parse(by);
+        try {
+            this.by = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw by.isEmpty()
+                    ? new InsufficientParametersException("deadline required")
+                    : new InvalidParameterException(String.format("%s; datetime required", by));
+        }
     }
 
     @Override

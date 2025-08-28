@@ -59,27 +59,25 @@ public class Storage {
                     switch (taskSplit[0]) {
                     case "T":
                         taskList.addTask(new Todo(taskSplit[1].equals("1"),
-                                taskSplit[2]), true);
+                                taskSplit[2]));
                         break;
                     case "D":
                         taskSplit = formatted.split(",", 4);
                         taskList.addTask(new Deadline(taskSplit[2].equals("1"),
-                                taskSplit[3], taskSplit[1]), true);
+                                taskSplit[3], taskSplit[1]));
                         break;
                     case "E":
                         taskSplit = formatted.split(",", 5);
                         taskList.addTask(new Event(taskSplit[3].equals("1"),
-                                taskSplit[4], taskSplit[1], taskSplit[2]), true);
+                                taskSplit[4], taskSplit[1], taskSplit[2]));
                         break;
                     }
-                } catch (DateTimeParseException e) {
-                    System.err.println("Date is invalid: " + e);
+                } catch (MarquessException e) {
+                    System.err.println("Task cannot be loaded: " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println("Cannot find task storage file: " + e);
-        } catch (InsufficientParametersException e) {
-            System.err.println("Storage file is corrupted: " + e);
         }
     }
 }

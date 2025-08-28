@@ -17,41 +17,61 @@ public class TaskList {
                 .toList());
     }
 
-    public void printTasks() {
-        System.out.printf("Here are the tasks in your list:%n%s", this);
+    public String getTaskDisplay() {
+        return String.format("Here are the tasks in your list:%n%s", this);
     }
 
-    public void addTask(Task t) {
-        this.taskList.add(t);
-        System.out.printf("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n", t, this.taskList.size());
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task Task to be added.
+     * @return Output message
+     */
+    public String addTask(Task task) {
+        this.taskList.add(task);
+        return String.format("Got it. I've added this task:%n%s%nNow you have %d task(s) in the list.%n", task, this.taskList.size());
     }
 
-    public void addTask(Task t, boolean fromStorage) {
-        this.taskList.add(t);
-    }
-
-    public void deleteTask(int i) throws TaskNotFoundException {
+    /**
+     * Deletes task at given index.
+     *
+     * @param i Index of task to be marked.
+     * @throws TaskNotFoundException Index of task does not exist.
+     */
+    public String deleteTask(int i) throws TaskNotFoundException {
         if (i < 0 || i >= this.taskList.size()) {
             throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
         }
         Task removed = this.taskList.remove(i);
-        System.out.printf("Noted. I've removed this task:%n%s%nNow you have %d task(s) in the list.%n", removed, this.taskList.size());
+        return String.format("Noted. I've removed this task:%n%s%nNow you have %d task(s) in the list.%n", removed, this.taskList.size());
     }
 
-    public void markTask(int i) throws TaskNotFoundException {
+    /**
+     * Marks task at given index as completed.
+     *
+     * @param i Index of task to be marked.
+     * @throws TaskNotFoundException Index of task does not exist.
+     */
+    public String markTask(int i) throws TaskNotFoundException {
         if (i < 0 || i >= this.taskList.size()) {
             throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
         }
         this.taskList.get(i).mark();
-        System.out.printf("Nice! I've marked this task as done:%n%s%n", this.taskList.get(i));
+        return String.format("Nice! I've marked this task as done:%n%s%n", this.taskList.get(i));
     }
 
-    public void unmarkTask(int i) throws TaskNotFoundException {
+    /**
+     * Marks task at given index as incomplete.
+     *
+     * @param i Index of task to be marked.
+     * @throws TaskNotFoundException Index of task does not exist.
+     */
+    public String unmarkTask(int i) throws TaskNotFoundException {
         if (i < 0 || i >= this.taskList.size()) {
             throw new TaskNotFoundException(String.format("task %d; only %d tasks added", i + 1, this.taskList.size()));
         }
         this.taskList.get(i).unmark();
-        System.out.printf("OK, I've marked this task as not done yet:%n%s%n", this.taskList.get(i));
+        return String.format("OK, I've marked this task as not done yet:%n%s%n", this.taskList.get(i));
     }
 
     public String exportTasks() {

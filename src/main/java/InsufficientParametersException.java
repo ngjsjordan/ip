@@ -1,11 +1,11 @@
-public class InsufficientParametersException extends Exception {
+public class InsufficientParametersException extends MarquessException {
 
     public InsufficientParametersException(String message) {
         super(message);
     }
 
     @Override
-    public String toString() {
+    public String getMessage() {
         return String.format("The command has insufficient parameters: %s", super.getMessage());
     }
 }

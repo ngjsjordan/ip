@@ -2,7 +2,7 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) throws InsufficientParametersException {
+    public Task(String description) throws MarquessException {
         if (description.isEmpty()) {
             throw new InsufficientParametersException("task requires - description");
         }
@@ -10,7 +10,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public Task(boolean isDone, String description) throws InsufficientParametersException {
+    public Task(boolean isDone, String description) throws MarquessException {
         this.description = description;
         this.isDone = isDone;
     }

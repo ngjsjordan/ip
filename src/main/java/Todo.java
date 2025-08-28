@@ -1,10 +1,10 @@
 public class Todo extends Task {
 
-    public Todo(String description) throws InsufficientParametersException {
+    public Todo(String description) throws MarquessException {
         super(description);
     }
 
-    public Todo(boolean isDone, String description) throws InsufficientParametersException {
+    public Todo(boolean isDone, String description) throws MarquessException {
         super(isDone, description);
     }
 

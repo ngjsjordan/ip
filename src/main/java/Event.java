@@ -7,16 +7,28 @@ public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
 
-    public Event(String description, String start, String end) throws InsufficientParametersException, DateTimeParseException {
+    public Event(String description, String start, String end) throws MarquessException {
         super(description);
-        this.start = LocalDate.parse(start);
-        this.end = LocalDate.parse(end);
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeParseException e) {
+            throw start.isEmpty() || end.isEmpty()
+                    ? new InsufficientParametersException("start and end required")
+                    : new InvalidParameterException(String.format("%s or %s; datetime required", start, end));
+        }
     }
 
-    public Event(boolean isDone, String description, String start, String end) throws InsufficientParametersException, DateTimeParseException {
+    public Event(boolean isDone, String description, String start, String end) throws MarquessException {
         super(isDone, description);
-        this.start = LocalDate.parse(start);
-        this.end = LocalDate.parse(end);
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeParseException e) {
+            throw start.isEmpty() || end.isEmpty()
+                    ? new InsufficientParametersException("start and end required")
+                    : new InvalidParameterException(String.format("%s or %s; datetime required", start, end));
+        }
     }
 
     @Override
