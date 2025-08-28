@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello! I'm duke.Marquess!");
+        System.out.println("Hello! I'm Marquess!");
         System.out.println("What can I do for you?");
     }
 
