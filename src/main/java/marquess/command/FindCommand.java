@@ -3,7 +3,6 @@ package marquess.command;
 import marquess.Storage;
 import marquess.TaskList;
 import marquess.Ui;
-import marquess.task.Task;
 
 /**
  * Command to find tasks where description contains search string.
