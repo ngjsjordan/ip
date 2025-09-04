@@ -89,6 +89,12 @@ public class TaskList {
         return String.format("OK, I've marked this task as not done yet:%n%s%n", this.taskList.get(i));
     }
 
+    /**
+     * Finds tasks with a description that matches the given substring.
+     *
+     * @param searchString the substring to match
+     * @return a formatted string of the tasks found.
+     */
     public String findTasks(String searchString) {
         List<Task> filtered = this.taskList.stream().filter(t -> t.contains(searchString)).toList();
         return String.format("Here are the matching tasks in your list:%n%s",
