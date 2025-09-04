@@ -9,8 +9,10 @@ import marquess.Ui;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
-        ui.showExit();
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
+        String exit = "Bye. Hope to see you again soon!";
+        ui.show(exit);
+        return exit;
     }
 
     @Override

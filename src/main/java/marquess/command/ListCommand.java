@@ -9,9 +9,10 @@ import marquess.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
-        String s = taskList.getTaskDisplay();
-        ui.show(s);
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
+        String res = taskList.getTaskDisplay();
+        ui.show(res);
+        return res;
     }
 
     @Override

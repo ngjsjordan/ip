@@ -24,10 +24,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException {
         String res = isDone ? taskList.markTask(idx) : taskList.unmarkTask(idx);
         ui.show(res);
         storage.save(taskList);
+        return res;
     }
 
     @Override

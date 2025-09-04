@@ -21,7 +21,7 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidCommandException {
         throw new InvalidCommandException(invalidCommand);
     }
 

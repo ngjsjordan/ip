@@ -3,7 +3,7 @@ package marquess;
 import java.util.Scanner;
 
 /**
- * Handles interactions with users, including inputs and display.
+ * Handles inputs and display via CLI.
  */
 public class Ui {
     private static final String DIVIDER = "-".repeat(50);
@@ -36,9 +36,5 @@ public class Ui {
     public void showWelcome() {
         System.out.println("Hello! I'm Marquess!");
         System.out.println("What can I do for you?");
-    }
-
-    public void showExit() {
-        System.out.println("Bye. Hope to see you again soon!");
     }
 }
