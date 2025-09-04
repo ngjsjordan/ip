@@ -48,6 +48,19 @@ public class Marquess {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = parser.parse(input);
+            String res = c.execute(storage, taskList, ui);
+            return res;
+        } catch (MarquessException e) {
+            return "Something has gone terribly wrong: " + e;
+        }
+    }
+
     public static void main(String[] args) {
         new Marquess("./data/marquess.txt").run();
     }

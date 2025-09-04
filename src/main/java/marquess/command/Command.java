@@ -15,8 +15,9 @@ public abstract class Command {
      * @param taskList TaskList class to be operated on
      * @param ui Ui class to be operated on
      * @param storage Storage class to be operated on
+     * @return String result of command execution.
      */
-    public abstract void execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException;
+    public abstract String execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException;
 
     /**
      * Returns whether to exit the program.

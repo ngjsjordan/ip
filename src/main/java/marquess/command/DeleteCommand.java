@@ -21,10 +21,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException {
         String res = taskList.deleteTask(idx);
         ui.show(res);
         storage.save(taskList);
+        return res;
     }
 
     @Override

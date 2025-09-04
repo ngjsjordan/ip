@@ -21,10 +21,11 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
         String res = taskList.addTask(task);
         ui.show(res);
         storage.save(taskList);
+        return res;
     }
 
     @Override
