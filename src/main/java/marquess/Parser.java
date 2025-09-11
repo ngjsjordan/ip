@@ -40,6 +40,10 @@ class Parser {
     public Command parse(String s) throws MarquessException {
         String[] params = s.split(" ");
 
+        if (params.length == 0) {
+            return new InvalidCommand("");
+        }
+
         return switch (params[0]) {
             case COMMAND_BYE -> new ExitCommand();
             case COMMAND_LIST -> new ListCommand();

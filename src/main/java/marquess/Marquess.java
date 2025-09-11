@@ -40,6 +40,7 @@ public class Marquess {
                 ui.showLine();
                 String input = ui.readCommand();
                 Command c = parser.parse(input);
+                assert c != null;
                 c.execute(storage, taskList, ui);
                 isExit = c.isExit();
             } catch (MarquessException e) {
@@ -54,6 +55,7 @@ public class Marquess {
     public String getResponse(String input) {
         try {
             Command c = parser.parse(input);
+            assert c != null;
             String res = c.execute(storage, taskList, ui);
             return res;
         } catch (MarquessException e) {
