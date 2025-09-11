@@ -29,6 +29,7 @@ public class Storage {
             try {
                 boolean success = file.getParentFile().mkdirs();
                 success = success && file.createNewFile();
+                assert success;
             } catch (IOException e) {
                 System.err.println("Cannot create storage file: " + e);
             }
