@@ -80,8 +80,8 @@ class Parser {
                             .skip(1)
                             .reduce((acc, word) -> acc + " " + word)
                             .orElse("")));
-            case COMMAND_MARK -> new MarkCommand(getIndex(params), true);
-            case COMMAND_UNMARK -> new MarkCommand(getIndex(params), false);
+            case COMMAND_MARK -> new MarkCommand(true, getIndex(params));
+            case COMMAND_UNMARK -> new MarkCommand(false, getIndex(params));
             case COMMAND_DELETE -> new DeleteCommand(getIndex(params));
             case COMMAND_FIND -> new FindCommand(getSearchString(s));
             default -> new InvalidCommand(params[0]);
@@ -89,15 +89,21 @@ class Parser {
     }
 
     /**
-     * Helper function to obtain index of task from parameter list.
+     * Helper function to obtain indices of tasks from parameter list.
+     * Parses all parameters other than the first one to obtain an array of
+     * integer indices in reverse order (for bulk deletions).
      *
      * @param params Array of parameters.
-     * @return Index of task to be operated on.
+     * @return Indices of tasks to be operated on, in reverse order.
      * @throws MarquessException If index cannot be obtained from parameters.
      */
-    public int getIndex(String[] params) throws MarquessException {
+    public Integer[] getIndex(String[] params) throws MarquessException {
         try {
-            return Integer.parseInt(params[1]) - 1;
+            return Arrays.stream(params)
+                    .skip(1)
+                    .map(p -> Integer.parseInt(p) - 1)
+                    .sorted((x, y) -> Integer.compare(y, x))
+                    .toArray(Integer[]::new);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InsufficientParametersException("required - index");
         } catch (NumberFormatException e) {

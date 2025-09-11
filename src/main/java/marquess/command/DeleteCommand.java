@@ -9,23 +9,26 @@ import marquess.exception.MarquessException;
  * Command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private final int idx;
+    private final Integer[] indices;
 
     /**
      * Constructor for command to delete task.
      *
-     * @param idx Index of task to be deleted.
+     * @param indices Indices of task to be deleted.
      */
-    public DeleteCommand(int idx) {
-        this.idx = idx;
+    public DeleteCommand(Integer ... indices) {
+        this.indices = indices;
     }
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException {
-        String res = taskList.deleteTask(idx);
-        ui.show(res);
+        StringBuilder res = new StringBuilder();
+        for (int idx : indices) {
+            res.append(taskList.deleteTask(idx)).append("\n");
+        }
+        ui.show(res.toString());
         storage.save(taskList);
-        return res;
+        return res.toString();
     }
 
     @Override
