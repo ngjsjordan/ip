@@ -21,6 +21,16 @@ import java.util.Arrays;
  * Parses input strings into commands.
  */
 class Parser {
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_MARK = "mark";
+    public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
+
     /**
      * Method for parsing user input strings into Command objects.
      * @param s String to be parsed.
@@ -35,14 +45,14 @@ class Parser {
         }
 
         return switch (params[0]) {
-            case "bye" -> new ExitCommand();
-            case "list" -> new ListCommand();
-            case "todo" -> new AddCommand(new Todo(
+            case COMMAND_BYE -> new ExitCommand();
+            case COMMAND_LIST -> new ListCommand();
+            case COMMAND_TODO -> new AddCommand(new Todo(
                     Arrays.stream(params)
                             .skip(1)
                             .reduce((acc, word) -> acc + " " + word)
                             .orElse("")));
-            case "deadline" -> new AddCommand(new Deadline(
+            case COMMAND_DEADLINE -> new AddCommand(new Deadline(
                     Arrays.stream(params)
                             .skip(1)
                             .takeWhile(word -> !word.equals("/by"))
@@ -53,7 +63,7 @@ class Parser {
                             .skip(1)
                             .reduce((acc, word) -> acc + " " + word)
                             .orElse("")));
-            case "event" -> new AddCommand(new Event(
+            case COMMAND_EVENT -> new AddCommand(new Event(
                     Arrays.stream(params)
                             .skip(1)
                             .takeWhile(word -> !(word.equals("/from") || word.equals("/to")))
@@ -70,10 +80,10 @@ class Parser {
                             .skip(1)
                             .reduce((acc, word) -> acc + " " + word)
                             .orElse("")));
-            case "mark" -> new MarkCommand(getIndex(params), true);
-            case "unmark" -> new MarkCommand(getIndex(params), false);
-            case "delete" -> new DeleteCommand(getIndex(params));
-            case "find" -> new FindCommand(getSearchString(s));
+            case COMMAND_MARK -> new MarkCommand(getIndex(params), true);
+            case COMMAND_UNMARK -> new MarkCommand(getIndex(params), false);
+            case COMMAND_DELETE -> new DeleteCommand(getIndex(params));
+            case COMMAND_FIND -> new FindCommand(getSearchString(s));
             default -> new InvalidCommand(params[0]);
         };
     }

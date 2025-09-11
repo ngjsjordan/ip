@@ -16,6 +16,13 @@ import java.util.Scanner;
  * Handles the saving and loading of Marquess data from txt storage.
  */
 public class Storage {
+    public static final int NUM_PARAMETERS_INITIAL = 2;
+    public static final int NUM_PARAMETERS_TODO = 3;
+    public static final int NUM_PARAMETERS_DEADLINE = 4;
+    public static final int NUM_PARAMETERS_EVENT = 5;
+
+    public static final String TASK_MARKED_INDICATOR = "1";
+
     private final File file;
 
     /**
@@ -61,34 +68,44 @@ public class Storage {
         try {
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
-                String formatted = s.nextLine();
+                String nextLine = s.nextLine();
                 try {
-                    String[] taskSplit = formatted.split(",", 3);
-                    switch (taskSplit[0]) {
-                    case "T":
-                        taskList.addTask(new Todo(taskSplit[1].equals("1"),
-                                taskSplit[2]));
-                        break;
-                    case "D":
-                        taskSplit = formatted.split(",", 4);
-                        taskList.addTask(new Deadline(taskSplit[2].equals("1"),
-                                taskSplit[3], taskSplit[1]));
-                        break;
-                    case "E":
-                        taskSplit = formatted.split(",", 5);
-                        taskList.addTask(new Event(taskSplit[3].equals("1"),
-                                taskSplit[4], taskSplit[1], taskSplit[2]));
-                        break;
-                    default:
-                        throw new InvalidParameterException("Invalid Task");
-                    }
-
+                    loadLine(taskList, nextLine);
                 } catch (MarquessException e) {
                     System.err.println("Task cannot be loaded: " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println("Cannot find task storage file: " + e);
+        }
+    }
+
+    /**
+     * Loads a line from txt storage to the task list.
+     *
+     * @param taskList Task list to be loaded to.
+     * @param line Line to be processed
+     */
+    public void loadLine(TaskList taskList, String line) throws MarquessException {
+        String[] taskSplit = line.split(",", NUM_PARAMETERS_INITIAL);
+        switch (taskSplit[0]) {
+        case "T":
+            taskSplit = line.split(",", NUM_PARAMETERS_TODO);
+            taskList.addTask(new Todo(taskSplit[1].equals(TASK_MARKED_INDICATOR),
+                    taskSplit[2]));
+            break;
+        case "D":
+            taskSplit = line.split(",", NUM_PARAMETERS_DEADLINE);
+            taskList.addTask(new Deadline(taskSplit[2].equals(TASK_MARKED_INDICATOR),
+                    taskSplit[3], taskSplit[1]));
+            break;
+        case "E":
+            taskSplit = line.split(",", NUM_PARAMETERS_EVENT);
+            taskList.addTask(new Event(taskSplit[3].equals(TASK_MARKED_INDICATOR),
+                    taskSplit[4], taskSplit[1], taskSplit[2]));
+            break;
+        default:
+            throw new InvalidParameterException("Invalid Task");
         }
     }
 }
