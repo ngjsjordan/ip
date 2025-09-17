@@ -11,7 +11,6 @@ public class Marquess {
     private final Parser parser;
     private final Storage storage;
     private final TaskList taskList;
-    private final Ui ui;
 
     /**
      * Constructor for Marquess.
@@ -22,31 +21,8 @@ public class Marquess {
         parser = new Parser();
         taskList = new TaskList();
         storage = new Storage(filePath);
-        ui = new Ui();
 
         storage.load(taskList);
-    }
-
-    /**
-     * Runs the program.
-     */
-    private void run() {
-        ui.showWelcome();
-
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                ui.showLine();
-                String input = ui.readCommand();
-                Command c = parser.parse(input);
-                assert c != null;
-                c.execute(storage, taskList, ui);
-                isExit = c.isExit();
-            } catch (MarquessException e) {
-                ui.showException(e);
-            }
-        }
     }
 
     /**
@@ -56,15 +32,11 @@ public class Marquess {
         try {
             Command c = parser.parse(input);
             assert c != null;
-            String res = c.execute(storage, taskList, ui);
+            String res = c.execute(storage, taskList);
             return res;
         } catch (MarquessException e) {
             return "Something has gone terribly wrong: " + e;
         }
-    }
-
-    public static void main(String[] args) {
-        new Marquess("./data/marquess.txt").run();
     }
 
 }

@@ -2,7 +2,6 @@ package marquess.command;
 
 import marquess.Storage;
 import marquess.TaskList;
-import marquess.Ui;
 
 /**
  * Command to find tasks where description contains search string.
@@ -20,9 +19,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(Storage storage, TaskList taskList, Ui ui) {
+    public String execute(Storage storage, TaskList taskList) {
         String res = taskList.findTasks(searchString);
-        ui.show(res);
         return res;
     }
 

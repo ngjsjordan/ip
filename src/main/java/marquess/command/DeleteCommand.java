@@ -2,7 +2,6 @@ package marquess.command;
 
 import marquess.Storage;
 import marquess.TaskList;
-import marquess.Ui;
 import marquess.exception.MarquessException;
 
 /**
@@ -21,12 +20,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(Storage storage, TaskList taskList, Ui ui) throws MarquessException {
+    public String execute(Storage storage, TaskList taskList) throws MarquessException {
         StringBuilder res = new StringBuilder();
         for (int idx : indices) {
             res.append(taskList.deleteTask(idx)).append("\n");
         }
-        ui.show(res.toString());
         storage.save(taskList);
         return res.toString();
     }

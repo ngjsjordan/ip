@@ -2,7 +2,6 @@ package marquess.command;
 
 import marquess.Storage;
 import marquess.TaskList;
-import marquess.Ui;
 import marquess.task.Task;
 
 /**
@@ -21,9 +20,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(Storage storage, TaskList taskList, Ui ui) {
+    public String execute(Storage storage, TaskList taskList) {
         String res = taskList.addTask(task);
-        ui.show(res);
         storage.save(taskList);
         return res;
     }

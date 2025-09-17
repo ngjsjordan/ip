@@ -2,7 +2,6 @@ package marquess.command;
 
 import marquess.Storage;
 import marquess.TaskList;
-import marquess.Ui;
 import marquess.exception.InvalidCommandException;
 
 /**
@@ -21,7 +20,7 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(Storage storage, TaskList taskList) throws InvalidCommandException {
         throw new InvalidCommandException(invalidCommand);
     }
 
