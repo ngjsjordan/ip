@@ -12,9 +12,4 @@ public class ExitCommand extends Command {
         String exit = "Bye. Hope to see you again soon!";
         return exit;
     }
-
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

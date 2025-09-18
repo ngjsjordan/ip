@@ -9,12 +9,6 @@ import marquess.TaskList;
 public class ListCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList) {
-        String res = taskList.getTaskDisplay();
-        return res;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        return taskList.getTaskDisplay();
     }
 }

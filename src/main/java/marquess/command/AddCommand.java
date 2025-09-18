@@ -25,9 +25,4 @@ public class AddCommand extends Command {
         storage.save(taskList);
         return res;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

@@ -33,6 +33,7 @@ class Parser {
 
     /**
      * Method for parsing user input strings into Command objects.
+     *
      * @param s String to be parsed.
      * @return Command that was parsed from the input string.
      * @throws MarquessException If command was entered incorrectly.
@@ -45,47 +46,141 @@ class Parser {
         }
 
         return switch (params[0]) {
-            case COMMAND_BYE -> new ExitCommand();
-            case COMMAND_LIST -> new ListCommand();
-            case COMMAND_TODO -> new AddCommand(new Todo(
-                    Arrays.stream(params)
-                            .skip(1)
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse("")));
-            case COMMAND_DEADLINE -> new AddCommand(new Deadline(
-                    Arrays.stream(params)
-                            .skip(1)
-                            .takeWhile(word -> !word.equals("/by"))
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""),
-                    Arrays.stream(params)
-                            .dropWhile(word -> !word.equals("/by"))
-                            .skip(1)
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse("")));
-            case COMMAND_EVENT -> new AddCommand(new Event(
-                    Arrays.stream(params)
-                            .skip(1)
-                            .takeWhile(word -> !(word.equals("/from") || word.equals("/to")))
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""),
-                    Arrays.stream(params)
-                            .dropWhile(word -> !word.equals("/from"))
-                            .skip(1)
-                            .takeWhile(word -> !word.equals("/to"))
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse(""),
-                    Arrays.stream(params)
-                            .dropWhile(word -> !word.equals("/to"))
-                            .skip(1)
-                            .reduce((acc, word) -> acc + " " + word)
-                            .orElse("")));
-            case COMMAND_MARK -> new MarkCommand(true, getIndex(params));
-            case COMMAND_UNMARK -> new MarkCommand(false, getIndex(params));
-            case COMMAND_DELETE -> new DeleteCommand(getIndex(params));
-            case COMMAND_FIND -> new FindCommand(getSearchString(s));
+            case COMMAND_BYE -> parseExit(params);
+            case COMMAND_LIST -> parseList(params);
+            case COMMAND_TODO -> parseTodo(params);
+            case COMMAND_DEADLINE -> parseDeadline(params);
+            case COMMAND_EVENT -> parseEvent(params);
+            case COMMAND_MARK -> parseMark(params);
+            case COMMAND_UNMARK -> parseUnmark(params);
+            case COMMAND_DELETE -> parseDelete(params);
+            case COMMAND_FIND -> parseFind(s);
             default -> new InvalidCommand(params[0]);
         };
+    }
+
+    /**
+     * Helper function to parse parameters for exit command.
+     *
+     * @param params Array of parameters.
+     * @return ExitCommand
+     */
+    private Command parseExit(String[] params) {
+        return new ExitCommand();
+    }
+
+    /**
+     * Helper function to parse parameters for list command.
+     *
+     * @param params Array of parameters.
+     * @return ListCommand
+     */
+    private Command parseList(String[] params) {
+        return new ListCommand();
+    }
+
+    /**
+     * Helper function to parse parameters for todo command.
+     *
+     * @param params Array of parameters.
+     * @return AddCommand for Todo
+     */
+    private Command parseTodo(String[] params) throws MarquessException {
+        String description = Arrays.stream(params)
+                .skip(1)
+                .reduce((acc, word) -> acc + " " + word)
+                .orElse("");
+        return new AddCommand(new Todo(description));
+    }
+
+    /**
+     * Helper function to parse parameters for deadline command.
+     *
+     * @param params Array of parameters.
+     * @return AddCommand for Deadline
+     */
+    private Command parseDeadline(String[] params) throws MarquessException {
+        String description = Arrays.stream(params)
+                .skip(1)
+                .takeWhile(word -> !word.equals("/by"))
+                .reduce((acc, word) -> acc + " " + word)
+                .orElse("");
+        String by = Arrays.stream(params)
+                .dropWhile(word -> !word.equals("/by"))
+                .skip(1)
+                .reduce((acc, word) -> acc + " " + word)
+                .orElse("");
+        return new AddCommand(new Deadline(description, by));
+    }
+
+    /**
+     * Helper function to parse parameters for event command.
+     *
+     * @param params Array of parameters.
+     * @return AddCommand for Event
+     */
+    private Command parseEvent(String[] params) throws MarquessException {
+        String description = Arrays.stream(params)
+                .skip(1)
+                .takeWhile(word -> !(word.equals("/from") || word.equals("/to")))
+                .reduce((acc, word) -> acc + " " + word)
+                .orElse("");
+        String from = Arrays.stream(params)
+                .dropWhile(word -> !word.equals("/from"))
+                .skip(1)
+                .takeWhile(word -> !word.equals("/to"))
+                .reduce((acc, word) -> acc + " " + word)
+                .orElse("");
+        String to = Arrays.stream(params)
+                .dropWhile(word -> !word.equals("/to"))
+                .skip(1)
+                .reduce((acc, word) -> acc + " " + word)
+                .orElse("");
+        return new AddCommand(new Event(description, from, to));
+    }
+
+    /**
+     * Helper function to parse parameters for mark command.
+     *
+     * @param params Array of parameters.
+     * @return MarkCommand (mark as done)
+     * @throws MarquessException If index cannot be obtained from parameters.
+     */
+    private Command parseMark(String[] params) throws MarquessException {
+        return new MarkCommand(true, getIndex(params));
+    }
+
+    /**
+     * Helper function to parse parameters for unmark command.
+     *
+     * @param params Array of parameters.
+     * @return MarkCommand (mark as not done)
+     * @throws MarquessException If index cannot be obtained from parameters.
+     */
+    private Command parseUnmark(String[] params) throws MarquessException {
+        return new MarkCommand(false, getIndex(params));
+    }
+
+    /**
+     * Helper function to parse parameters for delete command.
+     *
+     * @param params Array of parameters.
+     * @return DeleteCommand
+     * @throws MarquessException If index cannot be obtained from parameters.
+     */
+    private Command parseDelete(String[] params) throws MarquessException {
+        return new DeleteCommand(getIndex(params));
+    }
+
+    /**
+     * Helper function to parse parameters for find command.
+     *
+     * @param s Input string.
+     * @return FindCommand
+     * @throws MarquessException If no parameters are provided.
+     */
+    private Command parseFind(String s) throws MarquessException {
+        return new FindCommand(getSearchString(s));
     }
 
     /**
